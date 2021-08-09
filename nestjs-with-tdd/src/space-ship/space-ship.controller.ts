@@ -1,6 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
+
+import { SpaceShipService } from './space-ship.service';
 
 @Controller('space-ship')
 export class SpaceShipController {
-  public save(spaceShip: any) {}
+  constructor(private service: SpaceShipService) {}
+
+  @Post()
+  public save(spaceShip: any) {
+    this.service.save(spaceShip);
+  }
 }
