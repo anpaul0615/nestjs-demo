@@ -4,6 +4,8 @@ import { SpaceShipService } from './space-ship.service';
 import { SpaceShipRepository } from './space-ship.repository';
 import { SpaceShip } from './space-ship.dto';
 
+jest.mock('./space-ship.repository');
+
 describe('SpaceShipService', () => {
   let service: SpaceShipService;
   let repository: SpaceShipRepository;
@@ -28,7 +30,7 @@ describe('SpaceShipService', () => {
       spaceShipName: '',
       spaceShipNumber: 0,
     };
-    service.save(spaceShip); // fail..! (Method not implemented)
+    service.save(spaceShip);
     expect(repository.save).toHaveBeenCalled();
   });
 });
