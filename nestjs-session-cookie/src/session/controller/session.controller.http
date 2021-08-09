@@ -1,0 +1,18 @@
+### Login
+POST http://localhost:3000/sessions
+Content-Type: application/json
+Cookie: connect.sid={{sid}}
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+> {%
+client.global.set("sid", response.headers.valueOf("Set-Cookie").split(";")[0].split("=")[1]);
+client.log("쿠키: " + client.global.get("sid"));
+%}
+
+### Logout
+DELETE http://localhost:3000/sessions/me
+Content-Type: application/json
+Cookie: connect.sid={{sid}}

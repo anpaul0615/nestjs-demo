@@ -1,0 +1,28 @@
+### Signup
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123",
+  "name": "테스트 유저"
+}
+
+### Signup Verification
+POST http://localhost:3000/members/confirm
+Content-Type: application/json
+Cookie: connect.sid={{sid}}
+
+{
+  "email": "test@example.com",
+  "verificationCode": "ff14c5da-b002-4161-bb69-ab3ad25249ac"
+}
+> {%
+client.global.set("sid", response.headers.valueOf("Set-Cookie").split(";")[0].split("=")[1]);
+client.log("쿠키: " + client.global.get("sid"));
+%}
+
+### Withdraw Member
+DELETE http://localhost:3000/members/me
+Content-Type: application/json
+Cookie: connect.sid={{sid}}
