@@ -44,14 +44,24 @@ describe('SpaceShipService', () => {
       spaceShipName: spaceShip.spaceShipName,
       spaceShipNumber: spaceShip.spaceShipNumber,
     };
+    const spaceShipResponse: SpaceShip = {
+      isFasterThanLight: spaceShip.isFasterThanLight,
+      spaceShipId: spaceShip.spaceShipId,
+      spaceShipName: spaceShip.spaceShipName,
+      spaceShipNumber: spaceShip.spaceShipNumber,
+    };
 
     converter.fromDto = jest.fn().mockReturnValue(spaceShipEntity);
-
-    service.save(spaceShip);
-    expect(repository.save).toHaveBeenCalledWith(spaceShipEntity);
+    repository.save = jest.fn().mockResolvedValue(spaceShipEntity);
+    converter.toDto = jest.fn().mockReturnValue(spaceShipResponse);
 
     const convertedEntity = converter.fromDto(spaceShip);
-    expect(converter.fromDto).toHaveBeenCalledWith(spaceShip);
-    expect(repository.save).toHaveBeenCalledWith(convertedEntity);
+
+    return service.save(spaceShip).then((returnedSpaceShip: any) => {
+      expect(converter.fromDto).toHaveBeenCalledWith(spaceShip);
+      expect(repository.save).toHaveBeenCalledWith(convertedEntity);
+      expect(converter.toDto).toHaveBeenCalledWith(spaceShipEntity);
+      expect(returnedSpaceShip).toBe(spaceShipResponse);
+    });
   });
 });

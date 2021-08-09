@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 
 import { SpaceShip } from './space-ship.dto';
 import { SpaceShipRepository } from './space-ship.repository';
@@ -11,8 +11,13 @@ export class SpaceShipService {
     private entityConverter: SpaceShipEntityConverter,
   ) {}
 
-  save(spaceShip: SpaceShip) {
+  save(spaceShip: SpaceShip): Promise<SpaceShip> {
     const spaceShipEntity = this.entityConverter.fromDto(spaceShip);
-    this.repository.save(spaceShipEntity);
+    return this.repository
+      .save(spaceShipEntity)
+      .then(this.entityConverter.toDto)
+      .catch(() => {
+        throw new UnprocessableEntityException('Could not save');
+      });
   }
 }

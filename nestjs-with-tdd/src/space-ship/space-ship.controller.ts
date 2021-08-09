@@ -8,7 +8,7 @@ export class SpaceShipController {
   constructor(private service: SpaceShipService) {}
 
   @Post()
-  public save(@Body() spaceShip: SpaceShip) {
-    this.service.save(spaceShip);
+  public save(@Body() spaceShip: SpaceShip): Promise<SpaceShip> {
+    return this.service.save(spaceShip);
   }
 }
