@@ -3,6 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SpaceShipController } from './space-ship.controller';
 import { SpaceShipService } from './space-ship.service';
 
+jest.mock('./space-ship.service');
+
 describe('SpaceShipController', () => {
   let controller: SpaceShipController;
   let service: SpaceShipService;
@@ -24,6 +26,6 @@ describe('SpaceShipController', () => {
   it('controller.save 는 service.save 를 호출함', () => {
     const spaceShip = {};
     controller.save(spaceShip);
-    expect(service.save).toHaveBeenCalled(); // Matcher error: received value must be a mock or spy function
+    expect(service.save).toHaveBeenCalled();
   });
 });
