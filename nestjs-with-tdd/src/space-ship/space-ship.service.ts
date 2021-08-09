@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { SaveSpaceShipRequest } from './space-ship.dto';
+import { SpaceShip } from './space-ship.dto';
 
 @Injectable()
 export class SpaceShipService {
-  save(saveSpaceShipRequest: SaveSpaceShipRequest) {
+  save(spaceShip: SpaceShip) {
     throw new Error('Method not implemented.');
   }
 }

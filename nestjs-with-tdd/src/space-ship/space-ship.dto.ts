@@ -1,6 +1,6 @@
 import { IsString, IsNumber, IsBoolean, Length } from 'class-validator';
 
-export class SaveSpaceShipRequest {
+export class SpaceShip {
   @IsString()
   @Length(10, 20)
   spaceShipId: string;

@@ -3,7 +3,7 @@ import {
   ArgumentMetadata,
   BadRequestException,
 } from '@nestjs/common';
-import { SaveSpaceShipRequest } from './space-ship.dto';
+import { SpaceShip } from './space-ship.dto';
 
 describe('SaveSpaceShipRequest on ValidationPipe', () => {
   let validationPipe: ValidationPipe;
@@ -13,7 +13,7 @@ describe('SaveSpaceShipRequest on ValidationPipe', () => {
     validationPipe = new ValidationPipe({ transform: true, whitelist: true });
     metadata = {
       type: 'body',
-      metatype: SaveSpaceShipRequest,
+      metatype: SpaceShip,
       data: '',
     };
   });
@@ -29,7 +29,7 @@ describe('SaveSpaceShipRequest on ValidationPipe', () => {
     await validationPipe
       .transform(validPayload, metadata)
       .then((r) => {
-        expect(r).toBeInstanceOf(SaveSpaceShipRequest); // fire bad-request
+        expect(r).toBeInstanceOf(SpaceShip); // fire bad-request
       })
       .catch(() => {
         throw new Error('can not get in here');
