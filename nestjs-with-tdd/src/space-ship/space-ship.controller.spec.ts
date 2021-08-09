@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SpaceShipController } from './space-ship.controller';
 import { SpaceShipService } from './space-ship.service';
+import { SaveSpaceShipRequest } from './space-ship.dto';
 
 jest.mock('./space-ship.service');
 
@@ -24,8 +25,13 @@ describe('SpaceShipController', () => {
   });
 
   it('controller.save 는 service.save 를 호출함', () => {
-    const spaceShip = {};
+    const spaceShip: SaveSpaceShipRequest = {
+      spaceShipId: 'abc-123-ship',
+      spaceShipName: 'Star Harvester',
+      spaceShipNumber: 42,
+      isFasterThanLight: true,
+    };
     controller.save(spaceShip);
-    expect(service.save).toHaveBeenCalled();
+    expect(service.save).toHaveBeenCalledWith(spaceShip);
   });
 });
